@@ -1,6 +1,16 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { connect, dispatch } from 'react-redux'
 import { Field, reduxForm, formValueSelector } from 'redux-form'
+
+// const changeStuff = (props) =>{
+//   //debugger
+//  dispatch(props.change('selectingFormValues', 'firstName', 'Bertje'))
+// }
+
+
+const changeStuff = ({ dispatch }) => {
+  dispatch(this.props.change('selectingFormValues', 'firstName', 'Bertje'))
+}
 
 let SelectingFormValuesForm = props => {
   const {
@@ -88,6 +98,9 @@ let SelectingFormValuesForm = props => {
         <button type="button" disabled={pristine || submitting} onClick={reset}>
           Clear Values
         </button>
+        <button type="button" onClick={changeStuff}>
+          Change first name
+        </button>
       </div>
     </form>
   )
@@ -97,12 +110,15 @@ let SelectingFormValuesForm = props => {
 
 // Decorate with redux-form
 SelectingFormValuesForm = reduxForm({
-  form: 'selectingFormValues' // a unique identifier for this form
+  form: 'selectingFormValues',// a unique identifier for this form
+  change: reduxForm.change
 })(SelectingFormValuesForm)
 
 // Decorate with connect to read form values
 const selector = formValueSelector('selectingFormValues') // <-- same as form name
 SelectingFormValuesForm = connect(state => {
+
+  //debugger
   // can select values individually
   const hasEmailValue = selector(state, 'hasEmail')
   const favoriteColorValue = selector(state, 'favoriteColor')
