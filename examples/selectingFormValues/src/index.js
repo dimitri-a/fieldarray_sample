@@ -29,9 +29,9 @@ const showResults = values =>
   })
 
 let render = () => {
-  const SelectingFormValuesForm = require('./SelectingFormValuesForm').default
+  const ClassForm = require('./ClassForm').default
   const readme = require('./SelectingFormValues.md')
-  const raw = require('!!raw-loader!./SelectingFormValuesForm')
+  const raw = require('!!raw-loader!./ClassForm')
   ReactDOM.hydrate(
     <Provider store={store}>
       <App
@@ -49,26 +49,16 @@ let render = () => {
       >
         <Markdown content={readme} />
 
-        <div style={{ textAlign: 'center' }}>
-          <a
-            href="https://codesandbox.io/s/gJOBWZMRZ"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ fontSize: '1.5em' }}
-          >
-            <i className="fa fa-codepen" /> Open in Sandbox
-          </a>
-        </div>
 
         <h2>Form</h2>
 
-        <SelectingFormValuesForm onSubmit={showResults} />
+        <ClassForm onSubmit={showResults} />
 
         <Values form="selectingFormValues" />
 
         <h2>Code</h2>
 
-        <h4>SelectingFormValuesForm.js</h4>
+        
 
         <Code source={raw} />
       </App>
