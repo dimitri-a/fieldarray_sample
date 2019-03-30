@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import { Field, reduxForm, formValueSelector, change } from 'redux-form';
-import { connect} from 'react-redux';
+import { Field, reduxForm, formValueSelector, getFormValues,change } from 'redux-form';
+import { connect } from 'react-redux';
 
 class SelectingFormValuesForm extends Component {
     // ...
 
 
-    // changeStuff(props) {
-    //    // debugger
-    //    props.changeName('Bertje')
-    // }
+
+
+    handleChange(){
+        //do calculation
+        console.log('handlechange',this.props.values)        
+    }
+
 
     render() {
         const { favoriteColorValue,
@@ -19,11 +22,13 @@ class SelectingFormValuesForm extends Component {
             pristine,
             reset,
             submitting,
-        changeName } = this.props
+            changeName,
+        values } = this.props
+
 
         return <form onSubmit={handleSubmit}>
             <div>
-                <button onClick={changeName('Harry')}>change to Harry</button>
+                <button onClick={() => changeName('Harry')}>change to Harry</button>
                 <label>First Name</label>
                 <div>
                     <Field
@@ -42,6 +47,7 @@ class SelectingFormValuesForm extends Component {
                         component="input"
                         type="text"
                         placeholder="Last Name"
+                        onChange={() => this.handleChange()}
                     />
                 </div>
             </div>
@@ -116,11 +122,15 @@ const mapDispatchToProps = (dispatch) => ({
 // // Decorate with connect to read form values
 //const selector = formValueSelector('selectingFormValues') // <-- same as form name
 SelectingFormValuesForm = connect(
-        mapStateToProps,
-        mapDispatchToProps
+    state => ({
+        values: getFormValues('selectingFormValues')(state)
+      }),
+    mapDispatchToProps,
+  
 )
     (SelectingFormValuesForm);
 
 export default reduxForm({
-    form: 'selectingFormValues' // a unique name for this form
+    form: 'selectingFormValues' ,// a unique name for this form
+ 
 })(SelectingFormValuesForm);
