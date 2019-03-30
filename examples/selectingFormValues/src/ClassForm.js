@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { Field, reduxForm, formValueSelector } from 'redux-form';
-import { connect } from 'react-redux';
+import { Field, reduxForm, formValueSelector, change } from 'redux-form';
+import { connect} from 'react-redux';
 
 class SelectingFormValuesForm extends Component {
     // ...
 
 
-    changeStuff(props) {
-       // debugger
-       props.changeName('Bertje')
-    }
+    // changeStuff(props) {
+    //    // debugger
+    //    props.changeName('Bertje')
+    // }
 
     render() {
         const { favoriteColorValue,
@@ -23,6 +23,7 @@ class SelectingFormValuesForm extends Component {
 
         return <form onSubmit={handleSubmit}>
             <div>
+                <button onClick={changeName('Harry')}>change to Harry</button>
                 <label>First Name</label>
                 <div>
                     <Field
@@ -108,28 +109,15 @@ const mapStateToProps = (state) => ({
     // ...
 });
 
-const mapDispatchToProps = (dispatch, change) => ({
+const mapDispatchToProps = (dispatch) => ({
     changeName: name => dispatch(change('selectingFormValues', 'firstName', name))
 })
 
 // // Decorate with connect to read form values
-const selector = formValueSelector('selectingFormValues') // <-- same as form name
-SelectingFormValuesForm = connect(state => {
-
-    //debugger
-    // can select values individually
-    const hasEmailValue = selector(state, 'hasEmail')
-    const favoriteColorValue = selector(state, 'favoriteColor')
-    // or together as a group
-    const { firstName, lastName } = selector(state, 'firstName', 'lastName')
-    return {
-        hasEmailValue,
-        favoriteColorValue,
-        fullName: `${firstName || ''} ${lastName || ''}`
-    },
+//const selector = formValueSelector('selectingFormValues') // <-- same as form name
+SelectingFormValuesForm = connect(
         mapStateToProps,
         mapDispatchToProps
-}
 )
     (SelectingFormValuesForm);
 
