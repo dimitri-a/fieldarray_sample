@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Field, reduxForm, formValueSelector, getFormValues,change } from 'redux-form';
+import { Field, reduxForm,change ,getFormValues} from 'redux-form';
 import { connect } from 'react-redux';
 
 class SelectingFormValuesForm extends Component {
@@ -8,11 +8,22 @@ class SelectingFormValuesForm extends Component {
 
 
 
-    handleChange(){
-        //do calculation
-        console.log('handlechange',this.props.values)        
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     //debugger
+    //     const nextValues = nextProps.values;
+    //     const values = this.props.values;
 
+    //     // if at least one of the form values changed
+
+    // }
+
+    // handleChange(){
+    //     // debugger
+    //     // console.log('handlechange',lastName)
+    //     debugger
+    //     console.log('formvalues=',this.props.formValues)
+        
+    // }
 
     render() {
         const { favoriteColorValue,
@@ -23,7 +34,11 @@ class SelectingFormValuesForm extends Component {
             reset,
             submitting,
             changeName,
-        values } = this.props
+            formValues
+         } = this.props
+
+         console.log('formvalues=',formValues)
+
 
 
         return <form onSubmit={handleSubmit}>
@@ -47,7 +62,7 @@ class SelectingFormValuesForm extends Component {
                         component="input"
                         type="text"
                         placeholder="Last Name"
-                        onChange={() => this.handleChange()}
+                       
                     />
                 </div>
             </div>
@@ -123,14 +138,20 @@ const mapDispatchToProps = (dispatch) => ({
 //const selector = formValueSelector('selectingFormValues') // <-- same as form name
 SelectingFormValuesForm = connect(
     state => ({
-        values: getFormValues('selectingFormValues')(state)
-      }),
-    mapDispatchToProps,
-  
-)
-    (SelectingFormValuesForm);
+            formValues: getFormValues('selectingFormValues')(state),
+          }),
+    mapStateToProps,
+    mapDispatchToProps
+) (SelectingFormValuesForm);
 
 export default reduxForm({
     form: 'selectingFormValues' ,// a unique name for this form
  
 })(SelectingFormValuesForm);
+
+
+
+// const ConnectedAdjustmentRowsTable = connect()(AdjustmentRowsTable);
+  
+//   export default ConnectedAdjustmentRowsTable;
+  
