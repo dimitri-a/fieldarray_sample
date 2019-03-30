@@ -136,18 +136,26 @@ const mapDispatchToProps = (dispatch) => ({
 
 // // Decorate with connect to read form values
 //const selector = formValueSelector('selectingFormValues') // <-- same as form name
-SelectingFormValuesForm = connect(
-    state => ({
-            formValues: getFormValues('selectingFormValues')(state),
-          }),
-    mapStateToProps,
-    mapDispatchToProps
-) (SelectingFormValuesForm);
+// SelectingFormValuesForm = connect(
+//     state => ({
+//             formValues: getFormValues('selectingFormValues')(state),
+//           }),
+//     mapStateToProps,
+//     mapDispatchToProps
+// ) (SelectingFormValuesForm);
 
-export default reduxForm({
+
+const Example =reduxForm({
     form: 'selectingFormValues' ,// a unique name for this form
- 
 })(SelectingFormValuesForm);
+
+const ConnectedForm = connect(state => ({
+    formValues: getFormValues('selectingFormValues')(state),
+  }))(Example);
+  
+  export default ConnectedForm
+  
+
 
 
 
