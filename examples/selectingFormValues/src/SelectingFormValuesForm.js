@@ -2,17 +2,14 @@ import React from 'react'
 import { connect, dispatch } from 'react-redux'
 import { Field, reduxForm, formValueSelector } from 'redux-form'
 
-// const changeStuff = (props) =>{
-//   //debugger
-//  dispatch(props.change('selectingFormValues', 'firstName', 'Bertje'))
-// }
 
-
-const changeStuff = ({ dispatch }) => {
-  dispatch(this.props.change('selectingFormValues', 'firstName', 'Bertje'))
-}
 
 let SelectingFormValuesForm = props => {
+
+  const changeStuff = (props) => {
+    dispatch(change('selectingFormValues', 'firstName', 'Bertje'))
+  }
+
   const {
     favoriteColorValue,
     fullName,
@@ -20,7 +17,8 @@ let SelectingFormValuesForm = props => {
     hasEmailValue,
     pristine,
     reset,
-    submitting
+    submitting,
+    change
   } = props
   return (
     <form onSubmit={handleSubmit}>
@@ -111,7 +109,8 @@ let SelectingFormValuesForm = props => {
 // Decorate with redux-form
 SelectingFormValuesForm = reduxForm({
   form: 'selectingFormValues',// a unique identifier for this form
-  change: reduxForm.change
+  change: reduxForm.change,
+  dispatch:reduxForm.dispatch
 })(SelectingFormValuesForm)
 
 // Decorate with connect to read form values
