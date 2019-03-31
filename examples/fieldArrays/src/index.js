@@ -10,6 +10,7 @@ import {
   Values,
   generateExampleBreadcrumbs
 } from 'redux-form-website-template'
+import FormMain from './FieldArraysForm'
 
 const dest = document.getElementById('content')
 const reducer = combineReducers({
@@ -29,7 +30,7 @@ const showResults = values =>
   })
 
 let render = () => {
-  const FieldArraysForm = require('./FieldArraysForm').default
+  //const FieldArraysForm = require('./FieldArraysForm').default
   const readme = require('./FieldArrays.md')
   const raw = require('!!raw-loader!./FieldArraysForm')
   const rawValidate = require('!!raw-loader!./validate')
@@ -63,7 +64,7 @@ let render = () => {
 
         <h2>Form</h2>
 
-        <FieldArraysForm onSubmit={showResults} />
+        <FormMain onSubmit={showResults} />
 
         <Values form="fieldArrays" />
 

@@ -1,6 +1,9 @@
-import React from 'react'
-import { Field, FieldArray, reduxForm } from 'redux-form'
-import validate from './validate'
+import React,{Component} from 'react'
+import { Field, FieldArray, reduxForm,getFormValues,change } from 'redux-form'
+import {connect} from 'react-redux'
+import { CalcTotal } from './calculationHelper';
+
+
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div>
@@ -56,8 +59,20 @@ const renderMods = ({ fields, meta: { error, submitFailed } }) => (
   </ul>
 )
 
-const FieldArraysForm = props => {
-  const { handleSubmit, pristine, reset, submitting } = props
+class FieldArraysForm extends Component{
+
+render(){
+  const { handleSubmit, formValues,setTotal } = this.props
+
+   debugger
+   if (formValues) {
+    console.log('formvalues', formValues);
+     const test = CalcTotal(2000);
+     console.log('calc=', test);
+     debugger;
+     setTotal('total', test);
+   }
+
   return (
     <form onSubmit={handleSubmit}>
 
@@ -71,18 +86,34 @@ const FieldArraysForm = props => {
         />
 
       <div>
-        <button type="submit" disabled={submitting}>
+        <button type="submit" >
           Submit
         </button>
-        <button type="button" disabled={pristine || submitting} onClick={reset}>
-          Clear Values
-        </button>
+      
       </div>
     </form>
   )
 }
+}
 
-export default reduxForm({
+
+
+const mapStateToProps = (state) => ({
+  formValues: getFormValues('fieldArrays')(state)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setTotal: total => dispatch(change('fieldArrays', 'total', total)),
+  
+})
+
+const Example = reduxForm({
   form: 'fieldArrays', // a unique identifier for this form
-  validate
 })(FieldArraysForm)
+
+const ConnectedForm = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Example);
+
+export default ConnectedForm
