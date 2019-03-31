@@ -8,14 +8,15 @@ class SelectingFormValuesForm extends Component {
 
 
 
-    // componentWillReceiveProps(nextProps) {
-    //     //debugger
-    //     const nextValues = nextProps.values;
-    //     const values = this.props.values;
+    componentWillReceiveProps(nextProps) {
+        //debugger
+        const nextValues = nextProps.values;
+        const values = this.props.values;
+        console.log('nextpreos',nextProps.formValues)
 
-    //     // if at least one of the form values changed
+        // if at least one of the form values changed
 
-    // }
+    }
 
     // handleChange(){
     //     // debugger
@@ -37,9 +38,9 @@ class SelectingFormValuesForm extends Component {
             formValues
          } = this.props
 
-         debugger
+         //debugger
          if (formValues) {
-            console.log('formvalues', formValues);
+           // console.log('formvalues', formValues);
             //const test = calculateEbitda(2000, formValues.adjustments);
             //console.log('calc=', test);
             //debugger;
