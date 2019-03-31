@@ -13,6 +13,7 @@ class SelectingFormValuesForm extends Component {
         const nextValues = nextProps.values;
         const values = this.props.values;
         console.log('nextpreos',nextProps.formValues)
+        debugger
 
         // if at least one of the form values changed
 
@@ -74,30 +75,8 @@ class SelectingFormValuesForm extends Component {
                     />
                 </div>
             </div>
-            <div>
-                <label htmlFor="hasEmail">Has Email?</label>
-                <div>
-                    <Field
-                        name="hasEmail"
-                        id="hasEmail"
-                        component="input"
-                        type="checkbox"
-                    />
-                </div>
-            </div>
-            {hasEmailValue && (
-                <div>
-                    <label>Email</label>
-                    <div>
-                        <Field
-                            name="email"
-                            component="input"
-                            type="email"
-                            placeholder="Email"
-                        />
-                    </div>
-                </div>
-            )}
+            
+           
             <div>
                 <label>Favorite Color</label>
                 <div>
@@ -109,7 +88,7 @@ class SelectingFormValuesForm extends Component {
                     </Field>
                 </div>
             </div>
-            {favoriteColorValue && (
+           
                 <div
                     style={{
                         height: 80,
@@ -118,7 +97,7 @@ class SelectingFormValuesForm extends Component {
                         backgroundColor: favoriteColorValue
                     }}
                 />
-            )}
+        
             <div>
                 <button type="submit" disabled={pristine || submitting}>
                     Submit {fullName}
