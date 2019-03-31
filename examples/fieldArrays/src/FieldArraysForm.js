@@ -66,7 +66,7 @@ const FieldArraysForm = props => {
       <Field
           name="result"
           type="number"
-          component="input"
+          component="label"
           label="Result calculation"
         />
 
