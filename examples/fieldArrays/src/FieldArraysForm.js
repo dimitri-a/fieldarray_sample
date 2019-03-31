@@ -87,59 +87,53 @@ class FieldArraysForm extends Component {
 
 
 
-componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps) {
 
-  // let te
-  // debugger
-  // if (prevProps.formValues && prevProps.formValues.mods && this.props.formValues && this.props.formValues.mods)
-  // {
-  //   te = isArrayEqual(prevProps.formValues.mods, this.props.formValues.mods)
-  // }
-  
-  // console.log(te)
-  // debugger
+    debugger
+    let formHasChanged = false
+    let newTotal = 0
 
-  // if (te ) {
-  //   test = CalcTotal(Number(this.props.formValues.mods));
-  //   console.log('calc=', test);
-  //   this.props.change("fieldArraysForm", "total", test);
-  // }
+    if (prevProps.formValues && prevProps.formValues.mods && this.props.formValues && this.props.formValues.mods) {
+      formHasChanged = !(isArrayEqual(prevProps.formValues.mods, this.props.formValues.mods))
+    }
+
+    //form haschanged then calculate the number
+    if (formHasChanged) {
+      newTotal = CalcTotal(this.props.formValues.mods);
+      console.log('calc=', newTotal);
+      this.props.change("fieldArraysForm", "total", newTotal);
+    }
 
 
-  // if (typeof (prevProps.formValues) !== 'undefined' && this.props.formValues !== prevProps.formValues) {
-  //   this.props.change("fieldArraysForm", "total", test);
-  // }
-}
+    // if (typeof (prevProps.formValues) !== 'undefined' && this.props.formValues !== prevProps.formValues) {
+    //   this.props.change("fieldArraysForm", "total", test);
+    // }
 
-// shouldComponentUpdate(nextProps, nextState) {
-//   debugger
-//   if (!this.props) return true
-//   if (!nextProps.formValues) return true
-//   return this.props.formValues.total !== nextProps.formValues.total;
-// }
+  }
 
-render() {
-  const { handleSubmit } = this.props
 
-  return (
-    <form onSubmit={handleSubmit}>
+  render() {
+    const { handleSubmit } = this.props
 
-      {/* <button onClick={this.changeStuff}>set total</button> */}
+    return (
+      <form onSubmit={handleSubmit}>
 
-      <FieldArray name="mods" component={renderMods} />
+        {/* <button onClick={this.changeStuff}>set total</button> */}
+
+        <FieldArray name="mods" component={renderMods} />
 
 
 
 
-      <div>
-        <button type="submit" >
-          Submit
+        <div>
+          <button type="submit" >
+            Submit
         </button>
 
-      </div>
-    </form>
-  )
-}
+        </div>
+      </form>
+    )
+  }
 }
 
 

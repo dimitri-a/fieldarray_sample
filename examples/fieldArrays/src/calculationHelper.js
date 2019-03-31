@@ -1,6 +1,6 @@
 export function CalcTotal(val)
 {
-
+//todo create calc
     console.log('formvalues',val)
-    return val * 2
+    return 2
 }
