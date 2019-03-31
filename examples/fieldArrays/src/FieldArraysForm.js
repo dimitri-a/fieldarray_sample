@@ -5,7 +5,6 @@ import { CalcTotal } from './calculationHelper';
 import _ from 'lodash';
 
 
-
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div>
     <label>{label}</label>
@@ -46,15 +45,12 @@ const renderMods = ({ fields, meta: { error, submitFailed } }) => (
             label="Current Year"
           />
 
-
-
           <Field name={`${mod}.type`} component="select" label="Type">
             <option />
             <option value="-">Expense</option>
             <option value="+">Income</option>
             <option value="-">Tax</option>
           </Field>
-
 
         </li>
       ))}
@@ -75,68 +71,43 @@ const renderMods = ({ fields, meta: { error, submitFailed } }) => (
 const isArrayEqual = function (x, y) {
   return _(x).differenceWith(y, _.isEqual).isEmpty();
 };
-
 class FieldArraysForm extends Component {
 
-
   componentDidMount() {
+    //initialize the total value
     this.props.change('fieldArraysForm', 'total', 10)
   }
 
-
-
-
-
   componentDidUpdate(prevProps) {
-
-    debugger
     let formHasChanged = false
     let newTotal = 0
 
     if (prevProps.formValues && prevProps.formValues.mods && this.props.formValues && this.props.formValues.mods) {
       formHasChanged = !(isArrayEqual(prevProps.formValues.mods, this.props.formValues.mods))
     }
-
     //form haschanged then calculate the number
     if (formHasChanged) {
       newTotal = CalcTotal(this.props.formValues.mods);
       console.log('calc=', newTotal);
       this.props.change("fieldArraysForm", "total", newTotal);
     }
-
-
-    // if (typeof (prevProps.formValues) !== 'undefined' && this.props.formValues !== prevProps.formValues) {
-    //   this.props.change("fieldArraysForm", "total", test);
-    // }
-
   }
-
 
   render() {
     const { handleSubmit } = this.props
 
     return (
       <form onSubmit={handleSubmit}>
-
-        {/* <button onClick={this.changeStuff}>set total</button> */}
-
         <FieldArray name="mods" component={renderMods} />
-
-
-
-
         <div>
           <button type="submit" >
             Submit
         </button>
-
         </div>
       </form>
     )
   }
 }
-
-
 
 const mapStateToProps = (state) => ({
   formValues: getFormValues('fieldArraysForm')(state),
@@ -145,18 +116,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   change
 };
-
-
-// const Example = reduxForm({
-//   form: 'fieldArraysForm', // a unique identifier for this form
-// })(FieldArraysForm)
-
-// const ConnectedForm = connect(
-//   mapStateToProps,
-//   mapDispatchToProps,
-// )(Example);
-
-// export default ConnectedForm
 
 export default reduxForm({
   form: "fieldArraysForm"
