@@ -89,7 +89,8 @@ class FieldArraysForm extends Component {
     if (formHasChanged) {
       newTotal = CalcTotal(this.props.formValues.mods);
       console.log('calc=', newTotal);
-      this.props.change("fieldArraysForm", "total", newTotal);
+      debugger
+      this.props.change("fieldArraysForm", "total", newTotal.currentYear);
     }
   }
 

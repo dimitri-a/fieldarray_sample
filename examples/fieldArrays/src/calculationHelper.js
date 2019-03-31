@@ -25,5 +25,5 @@ const total = val.reduce((a, { currentYear, lastYear, type }) => {
 console.log('real total',total);
 //debugger
    
-    return 2
+    return total
 }
