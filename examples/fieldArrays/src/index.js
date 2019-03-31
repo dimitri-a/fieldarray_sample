@@ -30,7 +30,7 @@ const showResults = values =>
   })
 
 let render = () => {
-  //const FieldArraysForm = require('./FieldArraysForm').default
+  const FieldArraysForm = require('./FieldArraysForm').default
   const readme = require('./FieldArrays.md')
   const raw = require('!!raw-loader!./FieldArraysForm')
   const rawValidate = require('!!raw-loader!./validate')
