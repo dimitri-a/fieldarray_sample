@@ -12,61 +12,45 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
   </div>
 )
 
-const renderHobbies = ({ fields, meta: { error } }) => (
-  <ul>
-    <li>
-      <button type="button" onClick={() => fields.push()}>
-        Add Hobby
-      </button>
-    </li>
-    {fields.map((hobby, index) => (
-      <li key={index}>
-        <button
-          type="button"
-          title="Remove Hobby"
-          onClick={() => fields.remove(index)}
-        />
-        <Field
-          name={hobby}
-          type="text"
-          component={renderField}
-          label={`Hobby #${index + 1}`}
-        />
-      </li>
-    ))}
-    {error && <li className="error">{error}</li>}
-  </ul>
-)
-
-const renderMembers = ({ fields, meta: { error, submitFailed } }) => (
+const renderMods = ({ fields, meta: { error, submitFailed } }) => (
   <ul>
     <li>
       <button type="button" onClick={() => fields.push({})}>
-        Add Member
+        Add Modification
       </button>
       {submitFailed && error && <span>{error}</span>}
     </li>
-    {fields.map((member, index) => (
+    {fields.map((mod, index) => (
       <li key={index}>
         <button
           type="button"
-          title="Remove Member"
+          title="Remove Mod"
           onClick={() => fields.remove(index)}
         />
-        <h4>Member #{index + 1}</h4>
+        <h4>Mod #{index + 1}</h4>
         <Field
-          name={`${member}.firstName`}
-          type="text"
+          name={`${mod}.lastYear`}
+          type="number"
           component={renderField}
-          label="First Name"
+          label="Last Year"
         />
         <Field
-          name={`${member}.lastName`}
-          type="text"
+          name={`${mod}.currentYear`}
+          type="number"
           component={renderField}
-          label="Last Name"
+          label="Current Year"
         />
-        <FieldArray name={`${member}.hobbies`} component={renderHobbies} />
+
+
+
+        <Field name={`${mod}.type`} component="select" label="Type">
+          <option />
+          <option value="-">Expense</option>
+          <option value="+">Income</option>
+          <option value="-">Tax</option>
+        </Field>
+
+
       </li>
     ))}
   </ul>
@@ -76,13 +60,16 @@ const FieldArraysForm = props => {
   const { handleSubmit, pristine, reset, submitting } = props
   return (
     <form onSubmit={handleSubmit}>
+
+      <FieldArray name="mods" component={renderMods} />
+
       <Field
-        name="clubName"
-        type="text"
-        component={renderField}
-        label="Club Name"
-      />
-      <FieldArray name="members" component={renderMembers} />
+          name="result"
+          type="number"
+          component="input"
+          label="Result calculation"
+        />
+
       <div>
         <button type="submit" disabled={submitting}>
           Submit
