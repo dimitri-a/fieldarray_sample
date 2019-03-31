@@ -37,7 +37,14 @@ class SelectingFormValuesForm extends Component {
             formValues
          } = this.props
 
-         console.log('formvalues=',formValues)
+         debugger
+         if (formValues) {
+            console.log('formvalues', formValues);
+            //const test = calculateEbitda(2000, formValues.adjustments);
+            //console.log('calc=', test);
+            //debugger;
+            //change('adjustedEbitda_assessed', test);
+          }
 
 
 
@@ -127,39 +134,21 @@ class SelectingFormValuesForm extends Component {
 };
 
 const mapStateToProps = (state) => ({
-    // ...
+    formValues: getFormValues('selectingFormValues')(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    changeName: name => dispatch(change('selectingFormValues', 'firstName', name))
+    changeName: name => dispatch(change('selectingFormValues', 'firstName', name)),
+    
 })
-
-// // Decorate with connect to read form values
-//const selector = formValueSelector('selectingFormValues') // <-- same as form name
-// SelectingFormValuesForm = connect(
-//     state => ({
-//             formValues: getFormValues('selectingFormValues')(state),
-//           }),
-//     mapStateToProps,
-//     mapDispatchToProps
-// ) (SelectingFormValuesForm);
-
 
 const Example =reduxForm({
     form: 'selectingFormValues' ,// a unique name for this form
 })(SelectingFormValuesForm);
 
-const ConnectedForm = connect(state => ({
-    formValues: getFormValues('selectingFormValues')(state),
-  }))(Example);
+const ConnectedForm = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(Example);
   
   export default ConnectedForm
-  
-
-
-
-
-// const ConnectedAdjustmentRowsTable = connect()(AdjustmentRowsTable);
-  
-//   export default ConnectedAdjustmentRowsTable;
-  
