@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Field, FieldArray, reduxForm, getFormValues, change } from 'redux-form'
 import { connect } from 'react-redux'
 import { CalcTotal } from './calculationHelper';
+import _ from 'lodash';
 
 
 
@@ -71,22 +72,43 @@ const renderMods = ({ fields, meta: { error, submitFailed } }) => (
 )
 
 
+const isArrayEqual = function (x, y) {
+  return _(x).differenceWith(y, _.isEqual).isEmpty();
+};
+
 class FieldArraysForm extends Component {
 
 
-componentDidMount(){
- this.props.change('fieldArraysForm', 'total', 0)
-}
+  componentDidMount() {
+    this.props.change('fieldArraysForm', 'total', 10)
+  }
+
+
+
+
 
 componentDidUpdate(prevProps) {
-  //do calc
-  debugger
-  const test = CalcTotal(2000);
-  console.log('calc=', test);
 
-  if (typeof(prevProps.formValues) !=='undefined' && this.props.formValues.total !== prevProps.formValues.total) {
-    this.props.change("fieldArraysForm", "total", test);
-  }
+  // let te
+  // debugger
+  // if (prevProps.formValues && prevProps.formValues.mods && this.props.formValues && this.props.formValues.mods)
+  // {
+  //   te = isArrayEqual(prevProps.formValues.mods, this.props.formValues.mods)
+  // }
+  
+  // console.log(te)
+  // debugger
+
+  // if (te ) {
+  //   test = CalcTotal(Number(this.props.formValues.mods));
+  //   console.log('calc=', test);
+  //   this.props.change("fieldArraysForm", "total", test);
+  // }
+
+
+  // if (typeof (prevProps.formValues) !== 'undefined' && this.props.formValues !== prevProps.formValues) {
+  //   this.props.change("fieldArraysForm", "total", test);
+  // }
 }
 
 // shouldComponentUpdate(nextProps, nextState) {
@@ -96,28 +118,28 @@ componentDidUpdate(prevProps) {
 //   return this.props.formValues.total !== nextProps.formValues.total;
 // }
 
-  render() {
-    const { handleSubmit } = this.props
+render() {
+  const { handleSubmit } = this.props
 
-    return (
-      <form onSubmit={handleSubmit}>
+  return (
+    <form onSubmit={handleSubmit}>
 
-        {/* <button onClick={this.changeStuff}>set total</button> */}
+      {/* <button onClick={this.changeStuff}>set total</button> */}
 
-        <FieldArray name="mods" component={renderMods} />
-
-
+      <FieldArray name="mods" component={renderMods} />
 
 
-        <div>
-          <button type="submit" >
-            Submit
+
+
+      <div>
+        <button type="submit" >
+          Submit
         </button>
 
-        </div>
-      </form>
-    )
-  }
+      </div>
+    </form>
+  )
+}
 }
 
 

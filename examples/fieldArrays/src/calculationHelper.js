@@ -1,4 +1,6 @@
-export function CalcTotal()
+export function CalcTotal(val)
 {
-    return 200
+
+    console.log('formvalues',val)
+    return val * 2
 }
