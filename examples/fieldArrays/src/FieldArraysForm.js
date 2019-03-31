@@ -74,18 +74,37 @@ const renderMods = ({ fields, meta: { error, submitFailed } }) => (
 class FieldArraysForm extends Component {
 
 
+componentDidMount(){
+ this.props.change('fieldArraysForm', 'total', 0)
+}
+
+componentDidUpdate(prevProps) {
+  debugger
+  if (typeof(prevProps.formValues) !=='undefined' && this.props.formValues.total !== prevProps.formValues.total) {
+    this.props.change("fieldArraysForm", "total", "989");
+  }
+}
+
+// shouldComponentUpdate(nextProps, nextState) {
+//   debugger
+//   if (!this.props) return true
+//   if (!nextProps.formValues) return true
+//   return this.props.formValues.total !== nextProps.formValues.total;
+// }
 
   render() {
     const { handleSubmit, formValues, change } = this.props
-
-
-
+   // debugger
     if (formValues) {
+   
       console.log('formvalues', formValues);
       const test = CalcTotal(2000);
       console.log('calc=', test);
-      debugger
-      this.props.change('fieldArraysForm', 'total', 5000)
+
+    
+
+      
+
     }
 
     return (
