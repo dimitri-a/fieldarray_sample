@@ -79,9 +79,13 @@ componentDidMount(){
 }
 
 componentDidUpdate(prevProps) {
+  //do calc
   debugger
+  const test = CalcTotal(2000);
+  console.log('calc=', test);
+
   if (typeof(prevProps.formValues) !=='undefined' && this.props.formValues.total !== prevProps.formValues.total) {
-    this.props.change("fieldArraysForm", "total", "989");
+    this.props.change("fieldArraysForm", "total", test);
   }
 }
 
@@ -93,19 +97,7 @@ componentDidUpdate(prevProps) {
 // }
 
   render() {
-    const { handleSubmit, formValues, change } = this.props
-   // debugger
-    if (formValues) {
-   
-      console.log('formvalues', formValues);
-      const test = CalcTotal(2000);
-      console.log('calc=', test);
-
-    
-
-      
-
-    }
+    const { handleSubmit } = this.props
 
     return (
       <form onSubmit={handleSubmit}>
